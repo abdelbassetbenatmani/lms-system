@@ -5,12 +5,16 @@ import Navbar from "./Navbar";
 import Switcher from "./Switcher";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { PiUserCircle } from "react-icons/pi";
+import CustomModal from "@/app/utils/CustomModal";
+import Login from "./Auth/Login";
 type HeaderProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
   activeItem: number;
+  route:string;
+  setRoute: (route: string) => void;
 };
-const Header: FC<HeaderProps> = ({ activeItem,setOpen,open }) => {
+const Header: FC<HeaderProps> = ({ activeItem,setOpen,open,route,setRoute }) => {
   const [active, setActive] = useState(true);
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -42,7 +46,7 @@ const Header: FC<HeaderProps> = ({ activeItem,setOpen,open }) => {
         <div>
           <Navbar activeItem={activeItem} isMobile={false} />
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
         <Switcher />
         {/* Menu Hamburger */}
         <div className="md:hidden">
@@ -53,11 +57,12 @@ const Header: FC<HeaderProps> = ({ activeItem,setOpen,open }) => {
             />
         </div>
         <div>
-            <PiUserCircle
-                size={30}
-                className="cursor-pointer text-primary dark:text-white"
-                onClick={() => setOpen(true)}
-            />
+            <button 
+              className="bg-primary dark:border dark:border-white hover:bg-white hover:text-primary hover:border hover:border-primary duration-300 cursor-pointer text-white px-8 py-3 rounded-md font-normal text-base font-Poppins"
+             onClick={() => setOpen(true)}
+            >
+              Login
+            </button>
         </div>
         </div>
       </div>
@@ -74,6 +79,17 @@ const Header: FC<HeaderProps> = ({ activeItem,setOpen,open }) => {
             </div>
         </div>
      )   
+    }
+    {
+      route === "Login" && (
+        <CustomModal 
+        open={open} 
+        setOpen={setOpen}
+        activeItem={activeItem}
+        setRoute={setRoute}
+        component={Login}
+        />
+      )
     }
    </>
   );
