@@ -2,6 +2,7 @@
 import {FC,useState} from "react";
 import { Heading } from "./utils/Heading";
 import Header from "@/components/Header";
+import Hero from "@/components/Hero";
 
 interface pageProps {
 
@@ -9,6 +10,7 @@ interface pageProps {
 const Page:FC <pageProps> =  (props) => {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(0)
+  const [route, setRoute] = useState("Login")
 
   return (
     <div>
@@ -17,7 +19,10 @@ const Page:FC <pageProps> =  (props) => {
         open={open}
         setOpen={setOpen}
         activeItem={active}
+        route={route}
+        setRoute={setRoute}
       />
+      <Hero/>
     </div>
   )
 }
