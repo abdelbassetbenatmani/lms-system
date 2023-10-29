@@ -38,6 +38,7 @@ const Register: FC<Props> = ({ setRoute }) => {
     },
     validationSchema: RegisterSchema,
     onSubmit: (values) => {
+      setRoute("VerificationOTP");
       console.log(values);
     },
   });
