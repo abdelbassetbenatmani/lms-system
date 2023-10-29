@@ -7,6 +7,7 @@ import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { PiUserCircle } from "react-icons/pi";
 import CustomModal from "@/app/utils/CustomModal";
 import Login from "./Auth/Login";
+import Register from "./Auth/Register";
 type HeaderProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -88,6 +89,17 @@ const Header: FC<HeaderProps> = ({ activeItem,setOpen,open,route,setRoute }) => 
         activeItem={activeItem}
         setRoute={setRoute}
         component={Login}
+        />
+      )
+    }
+    {
+      route === "Register" && (
+        <CustomModal 
+        open={open} 
+        setOpen={setOpen}
+        activeItem={activeItem}
+        setRoute={setRoute}
+        component={Register}
         />
       )
     }
