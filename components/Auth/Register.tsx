@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useState,useEffect } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,6 +9,8 @@ import Box from "@mui/material/Box";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
+import { useRegisterMutation } from "@/Redux/Features/Auth/authApi";
+import toast from "react-hot-toast";
 type Props = {
   setRoute: (route: string) => void;
 };
@@ -29,6 +31,23 @@ const RegisterSchema = Yup.object().shape({
 
 const Register: FC<Props> = ({ setRoute }) => {
   const [show, setShow] = useState(false);
+  const [register,{isError,isSuccess,error,data}] = useRegisterMutation()
+  useEffect(() => {
+    if (isSuccess) {
+      const message = data?.message || "Register success"
+      toast.success(message)
+      setRoute("VerificationOTP");
+    }
+    if (error) {
+      if("data" in error ){
+        const errorData = error as any
+        toast.error(errorData.data.message  || "Register failed")
+      }else{
+        console.log(error)
+      }
+    }
+  }, [isSuccess,error])
+  
   const formik = useFormik({
     initialValues: {
       name:"",  
@@ -37,9 +56,9 @@ const Register: FC<Props> = ({ setRoute }) => {
       confirmpassword: "",
     },
     validationSchema: RegisterSchema,
-    onSubmit: (values) => {
-      setRoute("VerificationOTP");
-      console.log(values);
+    onSubmit: async({name,email,password}) => {
+      const data = {name,email,password}
+      await register(data)
     },
   });
   const { handleChange, handleSubmit, values, errors, touched } = formik;
