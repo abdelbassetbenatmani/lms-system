@@ -1,8 +1,11 @@
-import { FC ,useState,useRef} from 'react'
+import { FC ,useState,useRef, useEffect} from 'react'
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
+import { useSelector } from 'react-redux';
+import { useActivateMutation } from '@/Redux/Features/Auth/authApi';
+import toast from 'react-hot-toast';
 type Props = {
     setRoute: (route: string) => void;
 }
@@ -11,32 +14,60 @@ type VerifyOTP = {
     "1":string,
     "2":string,
     "3":string,
+    "4":string,
+    "5":string,
 }
 
 const VervificationOTP:FC<Props> = ({setRoute}) => {
+    const {token} = useSelector((state:any) => state.auth)
     const [invalidError, setInvalidError] = useState(false)
     const [verifyOTP, setVerifyOTP] = useState<VerifyOTP>({
         "0":"",
         "1":"",
         "2":"",
         "3":"",
+        "4":"",
+        "5":"",
     })
+    const [activate,{isError,isSuccess,error,data}] = useActivateMutation()
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Account activated successfully")
+      setRoute("Login");
+    }
+    if (error) {
+      if("data" in error ){
+        const errorData = error as any
+        toast.error(errorData.data.message  || "Register failed")
+        setInvalidError(true)
+      }else{
+        console.log(error)
+      }
+    }
+  }, [isSuccess,error])
     const inputRefs = [
         useRef<HTMLInputElement>(null),
         useRef<HTMLInputElement>(null),
         useRef<HTMLInputElement>(null),
         useRef<HTMLInputElement>(null),
+        useRef<HTMLInputElement>(null),
+        useRef<HTMLInputElement>(null),
     ]
-    const verificationHandler = (e:any) => {
-        setInvalidError(true)
-        console.log(e.target.value);
+    const verificationHandler = async(e:any) => {
+        const verificationNumber = Object.values(verifyOTP).join("")
+        if(verificationNumber.length !==6){
+            setInvalidError(true)
+            return
+        }
+        await activate({activate_token:token,activate_code:verificationNumber})
     }
+
     const handelInputChjanger = (index:number,value:string) => {
         setInvalidError(false)
         setVerifyOTP({...verifyOTP,[index]:value})
         if(value ==="" && index > 0){
             inputRefs[index - 1].current?.focus()
-        }else if(value.length ===0 && index < 3){
+        }else if(value.length ===0 && index < 5){
             inputRefs[index + 1].current?.focus()
         }
     }
