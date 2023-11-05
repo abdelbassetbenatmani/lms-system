@@ -20,6 +20,8 @@ type VerifyOTP = {
 
 const VervificationOTP:FC<Props> = ({setRoute}) => {
     const {token} = useSelector((state:any) => state.auth)
+    console.log(token);
+    
     const [invalidError, setInvalidError] = useState(false)
     const [verifyOTP, setVerifyOTP] = useState<VerifyOTP>({
         "0":"",
@@ -62,12 +64,12 @@ const VervificationOTP:FC<Props> = ({setRoute}) => {
         await activate({activate_token:token,activate_code:verificationNumber})
     }
 
-    const handelInputChjanger = (index:number,value:string) => {
+    const handelInputChanger = (index:number,value:string) => {
         setInvalidError(false)
         setVerifyOTP({...verifyOTP,[index]:value})
         if(value ==="" && index > 0){
             inputRefs[index - 1].current?.focus()
-        }else if(value.length ===0 && index < 5){
+        }else if(value.length ===1 && index < 5){
             inputRefs[index + 1].current?.focus()
         }
     }
@@ -142,7 +144,7 @@ const VervificationOTP:FC<Props> = ({setRoute}) => {
                             key={key}
                             value={verifyOTP[key as keyof VerifyOTP]}
                             ref={inputRefs[index]}
-                            onChange={(e) => handelInputChjanger(index,e.target.value)}
+                            onChange={(e) => handelInputChanger(index,e.target.value)}
                             onKeyUp={(e) => verificationHandler(e)}
                             maxLength={1}
                             type="number"

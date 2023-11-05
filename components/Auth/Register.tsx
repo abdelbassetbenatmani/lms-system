@@ -41,7 +41,7 @@ const Register: FC<Props> = ({ setRoute }) => {
     if (error) {
       if("data" in error ){
         const errorData = error as any
-        toast.error(errorData.data.message  || "Register failed")
+        toast.error(errorData.data.errors[0].msg  || "Register failed")
       }else{
         console.log(error)
       }

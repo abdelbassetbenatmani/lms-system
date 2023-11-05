@@ -1,10 +1,9 @@
-import { type } from "os";
 import { apiSlice } from "../Api/ApiSlice";
 import { useRegister } from "./authSlice";
 
 type RegisterResponse = {
     message: string;
-    activationToken: string;
+    token: string;
 };
 
 type RegisterData = {
@@ -26,8 +25,10 @@ export const authApi = apiSlice.injectEndpoints({
             async onQueryStarted(data, { dispatch, queryFulfilled }) {
                 try {
                     const result = await queryFulfilled;
+                    console.log(result.data);
+                    
                     dispatch(useRegister({
-                        token: result.data.activationToken,
+                        token: result.data.token,
                     }));
                 } catch (error) {
                     console.log(error);
@@ -35,14 +36,14 @@ export const authApi = apiSlice.injectEndpoints({
             }
         }),
         activate: builder.mutation({
-            query: ({ activate_token, activate_code}) => ({
+            query: ({ activate_token, activate_code }) => ({
                 url: '/auth/activate-account',
                 method: 'POST',
                 body: {
                     activate_token,
                     activate_code
                 },
-                credentials: 'include' as const
+                // credentials: 'include' as const
             }),
         }),
         
