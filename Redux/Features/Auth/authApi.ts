@@ -1,5 +1,5 @@
 import { apiSlice } from "../Api/ApiSlice";
-import { useRegister } from "./authSlice";
+import { useLogin, useRegister } from "./authSlice";
 
 type RegisterResponse = {
     message: string;
@@ -25,7 +25,6 @@ export const authApi = apiSlice.injectEndpoints({
             async onQueryStarted(data, { dispatch, queryFulfilled }) {
                 try {
                     const result = await queryFulfilled;
-                    console.log(result.data);
                     
                     dispatch(useRegister({
                         token: result.data.token,
@@ -46,8 +45,55 @@ export const authApi = apiSlice.injectEndpoints({
                 // credentials: 'include' as const
             }),
         }),
+        login: builder.mutation({
+            query: ({email,password}) => ({
+                url: '/auth/login',
+                method: 'POST',
+                body: {
+                    email,
+                    password
+                },
+                credentials: 'include' as const
+            }),
+            async onQueryStarted(data, { dispatch, queryFulfilled }) {
+                try {
+                    const result = await queryFulfilled;
+                    
+                    dispatch(useLogin({
+                        accessToken: result.data.accessToken,
+                        user: result.data.user
+                    }));
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }),
+        socialAuth: builder.mutation({
+            query: ({email,name,avatar}) => ({
+                url: '/auth/socialauth',
+                method: 'POST',
+                body: {
+                    email,
+                    name,
+                    avatar
+                },
+                credentials: 'include' as const
+            }),
+            async onQueryStarted(data, { dispatch, queryFulfilled }) {
+                try {
+                    const result = await queryFulfilled;
+                    
+                    dispatch(useLogin({
+                        accessToken: result.data.accessToken,
+                        user: result.data.user
+                    }));
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }),
         
     }),
 })
 
-export const { useRegisterMutation,useActivateMutation } = authApi;
+export const { useRegisterMutation,useActivateMutation,useLoginMutation,useSocialAuthMutation } = authApi;

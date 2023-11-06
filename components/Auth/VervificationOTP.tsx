@@ -20,7 +20,6 @@ type VerifyOTP = {
 
 const VervificationOTP:FC<Props> = ({setRoute}) => {
     const {token} = useSelector((state:any) => state.auth)
-    console.log(token);
     
     const [invalidError, setInvalidError] = useState(false)
     const [verifyOTP, setVerifyOTP] = useState<VerifyOTP>({
