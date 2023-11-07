@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 import avatar from "../public/assets/avatar.svg";
 import { useSession } from "next-auth/react";
-import { useSocialAuthMutation } from "@/Redux/Features/Auth/authApi";
+import { useLogOutQuery, useSocialAuthMutation } from "@/Redux/Features/Auth/authApi";
 import toast from "react-hot-toast";
 type HeaderProps = {
   open: boolean;
@@ -49,7 +49,8 @@ const Header: FC<HeaderProps> = ({
   const { data } = useSession();
 
   const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
-
+  const [logout,setLogout] = useState(false)
+  const {} = useLogOutQuery(undefined, { skip: !logout ? true : false  });
   useEffect(() => {
     if (!user) {
       if (data) {
@@ -60,9 +61,14 @@ const Header: FC<HeaderProps> = ({
         });
       }
     }
+    if(data ===null){
 
-    if (isSuccess) {
-      toast.success("Login Successfully");
+      if (isSuccess) {
+        toast.success("Login Successfully");
+      }
+    }
+    if(data ===null){
+      setLogout(true)
     }
   }, [isSuccess, error]);
   return (

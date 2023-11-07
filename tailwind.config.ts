@@ -9,6 +9,9 @@ const config: Config = {
   darkMode: ['class'],
   theme: {
     extend: {
+      height: {
+        sidbar: 'calc(100vh - 90px)',
+      },
       fontFamily:{
         Poppins:["var(--font-family-poppins)"],
       },
