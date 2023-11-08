@@ -1,6 +1,6 @@
 "use client";
 import { profileSidebarItems } from "@/constant";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsShieldLock } from "react-icons/bs";
 import { SiCoursera } from "react-icons/si";
@@ -14,7 +14,7 @@ type Props = {
 
 const Sidbar: FC<Props> = ({ active, setActive, logOutHandeler }) => {
   return (
-    <div className="w-[62px] md:w-[240px] p-2 h-sidbar flex flex-col shadow-lg text-primary dark:text-white bg-white dark:bg-secondary">
+    <div className="w-[62px] md:w-[250px] p-2 h-sidbar flex flex-col shadow-lg text-primary dark:text-white bg-white dark:bg-secondary">
       {profileSidebarItems.map((item, index) => (
         <div
           key={index}
