@@ -11,7 +11,8 @@ type Props = {
 
 const Profile:FC<Props> = ({user}) => {
     const [logout,setLogout] = useState(false)
-    const [active,setActive] = useState(1)
+    const [active,setActive] = useState(0)
+    const [avatar,setAvatar] = useState(null)
     const {} = useLogOutQuery(undefined, { skip: !logout ? true : false  });
     const logOutHandeler = async () => {
         setLogout(true)
@@ -21,7 +22,7 @@ const Profile:FC<Props> = ({user}) => {
     <div className=' bg-white dark:bg-primary text-primary dark:text-white mt-[90px] flex '>
       <Sidbar active={active} setActive={setActive} logOutHandeler={logOutHandeler}/>
       {
-          active === 0 && <ProfileInfo user={user}/>
+          active === 0 && <ProfileInfo user={user} avatar={avatar}/>
       }
       {
           active === 1 && <ChangePassword/>

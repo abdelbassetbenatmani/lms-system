@@ -34,23 +34,15 @@ const Header: FC<HeaderProps> = ({
 
   const { user } = useSelector((state: any) => state.auth);
 
-  if (typeof window !== "undefined") {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 100) {
-        setActive(true);
-      } else {
-        setActive(false);
-      }
-    });
-  }
+
   const handelClose = (e: any) => {
     if (e.target.id === "screen") setOpenSidebar(false);
   };
   const { data } = useSession();
-
+  
   const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
   const [logout,setLogout] = useState(false)
-  const {} = useLogOutQuery(undefined, { skip: !logout ? true : false  });
+  const {} = useLogOutQuery(undefined, { skip: logout ? false : true  });
   useEffect(() => {
     if (!user) {
       if (data) {
@@ -67,12 +59,17 @@ const Header: FC<HeaderProps> = ({
         toast.success("Login Successfully");
       }
     }
-    if(data ===null){
-      setLogout(true)
+    // if(data ===null){
+    //   setLogout(true)
+    // }
+    if(error){
+      console.log(error)
     }
-  }, [isSuccess, error]);
+  }, [data, user]);
+
   return (
     <>
+      {/* Header */}
       <div
         className={`dark:bg-primary shadow-md fixed top-0 left-0 right-0 z-50 flex items-center justify-between h-[90px] px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 transition-all duration-500 ease-in-out`}>
         <div className="container mx-auto flex justify-between items-center">
@@ -100,11 +97,11 @@ const Header: FC<HeaderProps> = ({
               {user ? (
                 <Link href="/profile">
                   <Image
-                    src={user.avatar ? user.avatar : avatar}
+                    src={user.avatar ? user.avatar.url : avatar}
                     alt="User Avatar"
                     width={48}
                     height={48}
-                    className="cursor-pointer"
+                    className="cursor-pointer rounded-full h-[48px] w-[48px]"
                   />
                 </Link>
               ) : (

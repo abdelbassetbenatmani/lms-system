@@ -24,12 +24,15 @@ export default function RootLayout({
         className={`${poppins.variable} !bg-white dark:bg-primary dark:from-grey dark:to-primary duration-300`}>
         <ReduxProvider>
           <SessionProvider>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              <Custom>
-              {children}
-              </Custom>
-              <Toaster position="top-center" reverseOrder={false} />
-            </ThemeProvider>
+            {/* <Custom> */}
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem>
+                {children}
+                <Toaster position="top-center" reverseOrder={false} />
+              </ThemeProvider>
+            {/* </Custom> */}
           </SessionProvider>
         </ReduxProvider>
       </body>
@@ -37,15 +40,7 @@ export default function RootLayout({
   );
 }
 
-const Custom:React.FC<{children:React.ReactNode}> = ({ children }) => {
-  const {isLoading} = useLoadUserQuery({})
-  return (
-    <>
-      {
-        isLoading ? (
-          <Loader/>
-        ):(<>{children}</>)
-      }
-    </>
-  )
-}
+const Custom: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isLoading } = useLoadUserQuery({});
+  return <>{isLoading ? <Loader /> : <>{children}</>}</>;
+};
