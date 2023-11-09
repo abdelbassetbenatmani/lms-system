@@ -5,14 +5,19 @@ import { AiOutlineUser } from "react-icons/ai";
 import { BsShieldLock } from "react-icons/bs";
 import { SiCoursera } from "react-icons/si";
 import { BiLogOut } from "react-icons/bi";
+import { RxDashboard } from "react-icons/rx";
+import Link from "next/link";
 
 type Props = {
   active: number;
   setActive: (value: number) => void;
   logOutHandeler: () => void;
+  userRole: string;
 };
 
-const Sidbar: FC<Props> = ({ active, setActive, logOutHandeler }) => {
+const Sidbar: FC<Props> = ({ active, setActive, logOutHandeler, userRole }) => {
+  console.log(userRole);
+  
   return (
     <div className="w-[62px] md:w-[250px] p-2 h-sidbar flex flex-col shadow-lg text-primary dark:text-white bg-white dark:bg-secondary">
       {profileSidebarItems.map((item, index) => (
@@ -39,10 +44,19 @@ const Sidbar: FC<Props> = ({ active, setActive, logOutHandeler }) => {
               <BsShieldLock size={20} />
             </div>
           )}
-
           <span className="hidden md:block">{item.name}</span>
         </div>
       ))}
+      
+         {userRole === "admin" && (
+          <Link href="/dashboard" className=" flex items-center justify-start w-full h-[58px] cursor-pointer font-Poppins text-base font-medium">
+
+             <RxDashboard size={20} className="w-[40px] h-[20px]"/>
+           
+             <span className="hidden md:block ms-3">Dashboard</span>
+          </Link>
+         )}
+      
       <div
         className={`flex items-center justify-start w-full h-[58px] cursor-pointer font-Poppins text-lg font-medium`}
         onClick={logOutHandeler}>
