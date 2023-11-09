@@ -20,7 +20,7 @@ const Profile:FC<Props> = ({user}) => {
     }
   return (
     <div className=' bg-white dark:bg-primary text-primary dark:text-white mt-[90px] flex '>
-      <Sidbar active={active} setActive={setActive} logOutHandeler={logOutHandeler}/>
+      <Sidbar active={active} setActive={setActive} logOutHandeler={logOutHandeler} userRole={user?.role}/>
       {
           active === 0 && <ProfileInfo user={user} avatar={avatar}/>
       }
