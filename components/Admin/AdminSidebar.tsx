@@ -11,7 +11,6 @@ import {
   ReceiptOutlinedIcon,
   PersonOutlinedIcon,
   CalendarTodayOutlinedIcon,
-  HelpOutlineOutlinedIcon,
   BarChartOutlinedIcon,
   PieChartOutlineOutlinedIcon,
   TimelineOutlinedIcon,
@@ -31,14 +30,14 @@ type Props = {
 
 const Item: FC<Props> = ({ title, to, icon, selected, setSelected }) => {
   return (
+    <Link href={to}>
     <MenuItem
       active={selected === title}
-      
       onClick={() => setSelected(title)}
       icon={icon}>
       <Typography className="!font-Poppins ">{title}</Typography>
-      <Link href={to} />
     </MenuItem>
+    </Link>
   );
 };
 const AdminSidebar = () => {
@@ -50,9 +49,11 @@ const AdminSidebar = () => {
   return (
     <Box
       sx={{
-        
+        zIndex: 1000,
+        minHeight: "100vh",
+        height: "100%",
       }}>
-      <Sidebar collapsed={isCollapsed} backgroundColor="#1C1E53" width="300px">
+      <Sidebar collapsed={isCollapsed} backgroundColor="#1C1E53" width="300px" style={{height:"100%"}}>
         <Menu
         menuItemStyles={{
             button: ({ level, active, disabled }) => {
@@ -90,6 +91,9 @@ const AdminSidebar = () => {
                 ml="15px"
                 
                 >
+                <Typography variant="h5" color="#EEF4FA">
+                 [EDUFREE]
+                </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon style={{ color: "white" }}  />
                 </IconButton>
@@ -130,7 +134,7 @@ const AdminSidebar = () => {
           <Box >
             <Item
               title="Dashboard"
-              to="/"
+              to="/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -168,26 +172,19 @@ const AdminSidebar = () => {
               variant="h6"
               color="#EEF4FA"
               sx={{ m: "15px 0 5px 20px" }}>
-              Pages
+              Course
             </Typography>
             <Item
-              title="Profile Form"
-              to="/form"
+              title="All Courses"
+              to="/courses"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Calendar"
-              to="/calendar"
+              title="Create Course"
+              to="/dashboard/create-course"
               icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
