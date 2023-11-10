@@ -40,7 +40,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
       await login({ email, password });
     },
   });
-
+  const { handleChange, handleSubmit, values, errors, touched } = formik;
   useEffect(() => {
     if (isSuccess) {
       toast.success("Login Successfully");
@@ -56,7 +56,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
     }
   }, [isSuccess, error]);
 
-  const { handleChange, handleSubmit, values, errors, touched } = formik;
+  
   return (
     <div>
       <Grid
