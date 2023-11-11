@@ -12,6 +12,9 @@ const config: Config = {
       height: {
         sidbar: 'calc(100vh - 90px)',
       },
+      minHeight: {
+        sidbar: 'calc(100vh - 90px)',
+      },
       fontFamily:{
         Poppins:["var(--font-family-poppins)"],
       },
