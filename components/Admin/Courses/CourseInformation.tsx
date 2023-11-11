@@ -14,11 +14,8 @@ const courseInformationSchema = Yup.object().shape({
   title: Yup.string().required("course name is required"),
   description: Yup.string().required("course description is required"),
   price: Yup.number().required("course price is required"),
-//   discount: Yup.number().required("course discount is required"),
   tags: Yup.string().required("course tags is required"),
   level: Yup.string().required("course level is required"),
-//   thumbnail: Yup.string()
-//       .required("course thumbnail is required"),
   demoUrl: Yup.string().required("course demoUrl is required"),
 });
 const CourseInformation: FC<Props> = ({
@@ -32,8 +29,8 @@ const CourseInformation: FC<Props> = ({
     initialValues: {
       title: "",
       description: "",
-      price: 0,
-      discount: 0,
+      price: "",
+      discount: "",
       thumbnail: "",
       tags: "",
       level: "",
@@ -51,7 +48,16 @@ const CourseInformation: FC<Props> = ({
       demoUrl,
     }) => {
       //   await login({ email, password });
-
+      setCourseInfo({
+        title,
+        description,
+        price,
+        discount,
+        thumbnail,
+        tags,
+        level,
+        demoUrl,
+      });
       setActive(active + 1);
     },
   });

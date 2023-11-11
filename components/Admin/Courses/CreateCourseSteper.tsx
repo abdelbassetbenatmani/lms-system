@@ -103,7 +103,7 @@ const CreateCourseSteper:FC<Props> = ({activeStep}) => {
         {steps.map((label) => (
           <Step key={label}  >
             <StepLabel StepIconComponent={ColorlibStepIcon}>
-                <span className="text-white font-Poppins">{label}</span>
+                <span className="text-primary dark:text-white font-Poppins">{label}</span>
             </StepLabel>
           </Step>
         ))}
