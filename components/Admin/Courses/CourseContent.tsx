@@ -257,7 +257,7 @@ const CourseContent: FC<Props> = ({
                         </div>
                       ))}
                       <button
-                        className="text-white flex gap-2 items-center mt-3 block"
+                        className="text-white flex gap-2 items-center mt-3"
                         onClick={() => handleAddLink(index)}>
                         <AiOutlineLink size={30} className="text-white" />
                         <span>Add Link</span>
