@@ -1,16 +1,19 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import DashboardHeader from "../DashboardHeader"
 import CreateCourseSteper from "./CreateCourseSteper"
 import CourseInformation from "./CourseInformation"
 import CourseOptionsData from "./CourseOptionsData"
 import CourseContent from "./CourseContent"
 import CoursePreview from "./CoursePreview"
+import { useCreateCourseMutation } from "@/Redux/Features/Courses/CoursesApi"
+import toast from "react-hot-toast"
 
 type Props = {}
 
 const CreateCourse = (props: Props) => {
-  const [activeStep, setActiveStep] = useState(3);
+  const [createCourse,{isLoading,error,isSuccess}]= useCreateCourseMutation()
+  const [activeStep, setActiveStep] = useState(0);
   const [courseInfo, setCourseInfo] = useState({
     title: "",
     description: "",
@@ -40,7 +43,6 @@ const CreateCourse = (props: Props) => {
         title: benifit.title
       }
     })
-    // courseContent formatted
     // requirements formatted
     const requirementsFormatted = requirements.map((requirement) => ({title: requirement.title}))
     // courseContent formatted
@@ -74,13 +76,26 @@ const CreateCourse = (props: Props) => {
       courseContent: courseContentFormatted
     }
     setCourseData(courseData)
-    console.log(courseData);
-    
   }
   const hundelCourseCreation = async() => {
-    console.log(courseData);
-    
+    const data = courseData
+    if(!isLoading){
+      await createCourse(data)
+    }
   }
+  useEffect(() => {
+    if(isSuccess ){
+      toast.success(`Course created successfully`)
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorData = error as any;
+        toast.error(errorData.data.message || "Course Created field");
+      } else {
+        console.log(error);
+      }
+    }
+  }, [isSuccess,error,isLoading])
   return (
 
     <div>

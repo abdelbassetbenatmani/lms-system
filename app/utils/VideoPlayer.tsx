@@ -8,23 +8,23 @@ type Props = {
 };
 
 const VideoPlayer: FC<Props> = ({ videoUrl }) => {
-  const [videoData, setVideoData] = useState("");
+  // const [videoData, setVideoData] = useState("");
 
-  useEffect(() => {
-    const fetchVideoUrl = async () => {
-      try {
-        // Directly use the provided videoUrl as the API endpoint
-        const response = await axios.get(
-          `http://localhost:8000/api/v1/course/generate-video-url-v2/${videoUrl}`
-        );
-        setVideoData(response.data);
-      } catch (error) {
-        console.log("Error fetching video URL:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchVideoUrl = async () => {
+  //     try {
+  //       // Directly use the provided videoUrl as the API endpoint
+  //       const response = await axios.get(
+  //         `http://localhost:8000/api/v1/course/generate-video-url-v2/${videoUrl}`
+  //       );
+  //       setVideoData(response.data);
+  //     } catch (error) {
+  //       console.log("Error fetching video URL:", error);
+  //     }
+  //   };
 
-    fetchVideoUrl();
-  }, [videoUrl]);
+  //   fetchVideoUrl();
+  // }, [videoUrl]);
 
   return (
     // <div>
@@ -52,7 +52,7 @@ const VideoPlayer: FC<Props> = ({ videoUrl }) => {
     //     }}></iframe> */}
 
     // </div>
-    <div className="h-[700px] relative">
+    <div className="relative">
       {/* <iframe
         src={`https://fast.wistia.net/embed/iframe/${videoUrl}`}
         title="Wistia Video Player"
@@ -64,7 +64,7 @@ const VideoPlayer: FC<Props> = ({ videoUrl }) => {
       <CldVideoPlayer
         width="1920"
         height="1080"
-        src="avatars/nrcqnq1xrphegqlg9q3n"
+        src={videoUrl}
         colors={{
           accent: "#ffffff",
           base: "#282938",
@@ -72,8 +72,7 @@ const VideoPlayer: FC<Props> = ({ videoUrl }) => {
         }}
         controlBar={{
           pictureInPictureToggle: true  
-        }}
-        
+        }}  
         playbackRates={[0.5, 1, 1.5,1.75, 2]}
         showJumpControls={true}
         fontFace="Source Serif Pro"

@@ -92,7 +92,7 @@ export const authApi = apiSlice.injectEndpoints({
                 }
             }
         }),
-        logOut: builder.query({
+        : builder.query({
             query: () => ({
                 url: '/auth/logout',
                 method: 'GET',
@@ -106,7 +106,7 @@ export const authApi = apiSlice.injectEndpoints({
                     console.log(error);
                 }
             }
-        }),
+        }),logOut
         
     }),
 })

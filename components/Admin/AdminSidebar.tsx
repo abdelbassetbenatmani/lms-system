@@ -176,7 +176,7 @@ const AdminSidebar = () => {
             </Typography>
             <Item
               title="All Courses"
-              to="/courses"
+              to="/dashboard/courses"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
