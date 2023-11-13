@@ -7,15 +7,15 @@ import { useSelector } from "react-redux";
 import {
   HomeOutlinedIcon,
   PeopleOutlinedIcon,
-  ContactsOutlinedIcon,
   ReceiptOutlinedIcon,
-  PersonOutlinedIcon,
-  CalendarTodayOutlinedIcon,
+  PeopleOutlineIcon,
   BarChartOutlinedIcon,
   PieChartOutlineOutlinedIcon,
   TimelineOutlinedIcon,
   MenuOutlinedIcon,
   MapOutlinedIcon,
+  NoteAddOutlinedIcon,
+  CastForEducationOutlinedIcon,
 } from "./Icons";
 import avatarIcon from "../../public/assets/avatar.svg";
 
@@ -148,15 +148,15 @@ const AdminSidebar = () => {
             </Typography>
             <Item
               title="Manage Team"
-              to="/team"
+              to="/dashboard/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Contacts Information"
-              to="/contacts"
-              icon={<ContactsOutlinedIcon />}
+              title="Users"
+              to="/dashboard/users"
+              icon={<PeopleOutlineIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -177,14 +177,14 @@ const AdminSidebar = () => {
             <Item
               title="All Courses"
               to="/dashboard/courses"
-              icon={<PersonOutlinedIcon />}
+              icon={<CastForEducationOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Create Course"
               to="/dashboard/create-course"
-              icon={<CalendarTodayOutlinedIcon />}
+              icon={<NoteAddOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

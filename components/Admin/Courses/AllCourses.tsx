@@ -14,7 +14,7 @@ const AllCourses = () => {
   const { theme, setTheme } = useTheme();
   const {isLoading,data,error} = useGetAdminCoursesQuery({});
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", flex:0.5},
+    { field: "id", headerName: "ID", flex:0.7},
     {
       field: "coursetitle",
       headerName: "Course title",
