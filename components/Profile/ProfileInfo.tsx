@@ -29,13 +29,9 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
     const fileReader = new FileReader();
     fileReader.onload = () => {
       const avatar = fileReader.result;
-      console.log(avatar);
       
       if (fileReader.readyState === 2) {
-        updateUserAvatar(avatar)
-      
-        console.log(e.target.files);
-        
+        updateUserAvatar(avatar)      
       }
     };
     fileReader.readAsDataURL(e.target.files[0]);

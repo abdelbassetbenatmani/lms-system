@@ -1,21 +1,34 @@
 "use client";
 import DashboardHeader from "../DashboardHeader";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Button, Box } from "@mui/material";
+import { Button, Box, Modal } from "@mui/material";
 import { useTheme } from "next-themes";
-import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
+import { MdOutlineDelete } from "react-icons/md";
 import Loader from "@/components/Loader/Loader";
 import { format } from "timeago.js";
-import { useGetAdminAllUsersQuery } from "@/Redux/Features/User/userApi";
-import { FC } from "react";
+import {
+  useDeleteUserMutation,
+  useGetAdminAllUsersQuery,
+  useUpdateUserRoleMutation,
+} from "@/Redux/Features/User/userApi";
+import { FC, useState, useEffect } from "react";
 import { HiUserAdd } from "react-icons/hi";
+import toast from "react-hot-toast";
 type Props = {
   isTeam: boolean;
 };
 
 const AllUsers: FC<Props> = ({ isTeam }) => {
   const { theme, setTheme } = useTheme();
-  const { isLoading, data, error } = useGetAdminAllUsersQuery({});
+  const [active, setActive] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("admin");
+  const [userId, setUserId] = useState("");
+  const { isLoading, data, error,refetch } = useGetAdminAllUsersQuery({},{refetchOnMountOrArgChange: true});
+  const [updateUserRole, { error: roleError, isSuccess }] =
+    useUpdateUserRoleMutation({});
+  const [deleteUser,{isSuccess:succesDelete,error:deleteError}]= useDeleteUserMutation({})  
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", flex: 0.7 },
     {
@@ -59,7 +72,11 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
       flex: 0.2,
       //   width: 160,
       renderCell: (params) => (
-        <Button>
+        <Button
+          onClick={(e) => {
+            setOpen(!open);
+            setUserId(params.row.id);
+          }}>
           <MdOutlineDelete size={25} className={`text-white`} />
         </Button>
       ),
@@ -93,6 +110,44 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         });
       });
   }
+  const handelSubmit = async () => {
+    await updateUserRole({ role, email });
+  };
+  const handelDelete = async () => {
+    const id = userId;
+    await deleteUser(id)   
+  }
+  useEffect(() => {
+    if (roleError) {
+      if ("data" in roleError) {
+        const errorData = roleError as any;
+        toast.error(errorData.data.message || "Update failed");
+      } else {
+        console.log(error);
+      }
+    }
+
+    if (deleteError) {
+      if ("data" in deleteError) {
+        const errorData = deleteError as any;
+        toast.error(errorData.data.message || "Delete failed");
+      } else {
+        console.log(error);
+      }
+    }
+    if (isSuccess) {
+      refetch()
+      toast.success("Role updated successfully");
+      setActive(!active);
+    }
+    if (succesDelete) {
+      refetch()
+      toast.success("Delete user successfully");
+      setOpen(!open);
+    }
+  }, [isSuccess, roleError,succesDelete,deleteError]);
+
+  
   return (
     <div>
       <DashboardHeader />
@@ -102,14 +157,18 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         ) : (
           // button for add new user
           <>
-            <div className="flex justify-end w-full my-4">
-              <button
-                className="flex items-center  justify-center bg-yellow text-primary w-48 py-2 rounded-lg font-Poppins font-bold text-lg hover:border hover:border-yellow hover:bg-primary hover:text-yellow duration-300"
-                >
-                <span>Add new user</span>
-                <span><HiUserAdd size={30}/></span>
-              </button>
-            </div>
+            {isTeam && (
+              <div className="flex justify-end w-full my-4">
+                <button
+                  className="flex items-center  justify-center bg-yellow text-primary w-48 py-2 rounded-lg font-Poppins font-bold text-lg hover:border hover:border-yellow hover:bg-primary hover:text-yellow duration-300"
+                  onClick={() => setActive(!active)}>
+                  <span className="font-normal">Add new user</span>
+                  <span>
+                    <HiUserAdd size={30} />
+                  </span>
+                </button>
+              </div>
+            )}
             <Box
               sx={{
                 height: 600,
@@ -181,6 +240,80 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
           </>
         )}
       </div>
+      {active && (
+        <Modal
+          open={active}
+          onClose={() => setActive(!active)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description">
+          <div className="w-96 h-96 bg-white dark:bg-primary rounded-lg outline-none focus:outline-none flex flex-col p-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <h1 className="text-xl font-bold">Add New User</h1>
+            <div className="flex flex-col mt-4">
+              <label htmlFor="email" className="text-lg font-semibold">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                className=" ps-8 py-5 mt-4 text-white font-Poppins rounded-lg border border-white border-opacity-10 bg-transparent w-full"
+              />
+            </div>
+            <div className="flex flex-col mt-4">
+              <label htmlFor="role" className="text-lg font-semibold">
+                Role
+              </label>
+              <select
+                name="role"
+                id="role"
+                className="px-4 mt-4 py-5 text-white font-Poppins rounded-lg border border-white border-opacity-10 bg-transparent w-full"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}>
+                <option value="admin" className="text-black">
+                  Admin
+                </option>
+                <option value="user" className="text-black">
+                  User
+                </option>
+              </select>
+            </div>
+            <button
+              type="submit"
+              onClick={handelSubmit}
+              className="bg-yellow text-primary w-full my-5 py-3 rounded-lg font-Poppins font-bold text-lg hover:border hover:border-yellow hover:bg-primary hover:text-yellow duration-300">
+              Add member
+            </button>
+          </div>
+        </Modal>
+      )}
+      {open && (
+        <Modal
+          open={open}
+          onClose={() => setOpen(!open)}
+          aria-labelledby="Delete User"
+          aria-describedby="Delete User">
+          <div className="w-96 max-h-max bg-white dark:bg-primary rounded-lg outline-none focus:outline-none flex flex-col p-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <h1 className="text-2xl font-bold mb-4">
+              Are you sure delete this user ?
+            </h1>
+            <div className="flex space-x-3 justify-end">
+              <button
+                className="bg-transparent text-white border border-white w-28 mt-5 mb-3 py-2 rounded-lg font-Poppins font-bold text-lg hover:border hover:border-yellow hover:bg-primary hover:text-yellow duration-300"
+                onClick={() => setOpen(!open)}>
+                Cancel
+              </button>
+              <button
+                className="bg-red-500 text-white w-28 mt-5 mb-3 py-2 rounded-lg font-Poppins font-bold text-lg hover:border hover:border-red-500 hover:bg-transparent hover:text-red-500 duration-300"
+                onClick={handelDelete}>
+                Delete
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

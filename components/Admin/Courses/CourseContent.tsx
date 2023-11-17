@@ -125,7 +125,8 @@ const CourseContent: FC<Props> = ({
                       placeholder="Enter Section name"
                       value={item.videoSection}
                       onChange={(e) => {
-                        const updatedCourseContent = [...courseContent];
+                        const updatedCourseContent = JSON.parse(JSON.stringify(courseContent));
+                        // const updatedCourseContent = [...courseContent];
                         updatedCourseContent[index].videoSection =
                           e.target.value;
                         setCourseContent(updatedCourseContent);
@@ -155,7 +156,8 @@ const CourseContent: FC<Props> = ({
                         className="text-red-700 absolute top-0 right-2 cursor-pointer"
                         onClick={() => {
                           if (index > 0) {
-                            const updatedCourseContent = [...courseContent];
+                            const updatedCourseContent = JSON.parse(JSON.stringify(courseContent));
+                            // const updatedCourseContent = [...courseContent];
                             updatedCourseContent.splice(index, 1);
                             setCourseContent(updatedCourseContent);
                           }
@@ -171,7 +173,8 @@ const CourseContent: FC<Props> = ({
                           placeholder="Enter video title"
                           value={item.title}
                           onChange={(e) => {
-                            const updatedCourseContent = [...courseContent];
+                            const updatedCourseContent = JSON.parse(JSON.stringify(courseContent));
+                            // const updatedCourseContent = [...courseContent];
                             updatedCourseContent[index].title = e.target.value;
                             setCourseContent(updatedCourseContent);
                           }}
@@ -187,7 +190,8 @@ const CourseContent: FC<Props> = ({
                           placeholder="Enter video Url"
                           value={item.videoUrl}
                           onChange={(e) => {
-                            const updatedCourseContent = [...courseContent];
+                            const updatedCourseContent = JSON.parse(JSON.stringify(courseContent));
+                            // const updatedCourseContent = [...courseContent];
                             updatedCourseContent[index].videoUrl =
                               e.target.value;
                             setCourseContent(updatedCourseContent);
@@ -205,7 +209,8 @@ const CourseContent: FC<Props> = ({
                           placeholder="Enter video Description"
                           value={item.description}
                           onChange={(e) => {
-                            const updatedCourseContent = [...courseContent];
+                            const updatedCourseContent = JSON.parse(JSON.stringify(courseContent));
+                            // const updatedCourseContent = [...courseContent];
                             updatedCourseContent[index].description =
                               e.target.value;
                             setCourseContent(updatedCourseContent);
@@ -231,7 +236,8 @@ const CourseContent: FC<Props> = ({
                               placeholder="Enter Link title"
                               value={link.title}
                               onChange={(e) => {
-                                const updatedCourseContent = [...courseContent];
+                                const updatedCourseContent = JSON.parse(JSON.stringify(courseContent));
+                                // const updatedCourseContent = [...courseContent];
                                 updatedCourseContent[index].links[
                                   linkIndex
                                 ].title = e.target.value;
@@ -246,7 +252,8 @@ const CourseContent: FC<Props> = ({
                               placeholder="Enter Link Url"
                               value={link.url}
                               onChange={(e) => {
-                                const updatedCourseContent = [...courseContent];
+                                const updatedCourseContent = JSON.parse(JSON.stringify(courseContent));
+                                // const updatedCourseContent = [...courseContent];
                                 updatedCourseContent[index].links[
                                   linkIndex
                                 ].url = e.target.value;

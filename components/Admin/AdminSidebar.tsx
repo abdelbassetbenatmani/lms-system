@@ -110,6 +110,7 @@ const AdminSidebar = () => {
                       ? user.avatar.url 
                       : avatarIcon
                   }
+                  priority
                   alt={user?.name}
                   width={100}
                   height={100}

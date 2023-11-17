@@ -76,6 +76,7 @@ const VideoPlayer: FC<Props> = ({ videoUrl }) => {
         playbackRates={[0.5, 1, 1.5,1.75, 2]}
         showJumpControls={true}
         fontFace="Source Serif Pro"
+        id={`${Math.floor(Math.random() * (100000 - 0 + 1)) + 0}`}
       />
     </div>
   );

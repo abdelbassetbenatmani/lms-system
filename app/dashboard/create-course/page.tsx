@@ -3,11 +3,9 @@ import { Heading } from '@/app/utils/Heading'
 import AdminSidebar from '@/components/Admin/AdminSidebar'
 import CreateCourse from '@/components/Admin/Courses/CreateCourse'
 import { AdminProtected } from '@/hooks/useAdminProtected'
-import {FC} from 'react'
 
-type Props = {}
 
-const page = (props: Props) => {
+const page = () => {
   return (
     <AdminProtected>
     <Heading

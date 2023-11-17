@@ -7,6 +7,7 @@ type Props = {
   hundelCourseCreation: any;
   active: number;
   setActive: (e: any) => void;
+  isEdit?: boolean;
 };
 
 const CoursePreview: FC<Props> = ({
@@ -14,6 +15,7 @@ const CoursePreview: FC<Props> = ({
   hundelCourseCreation,
   active,
   setActive,
+  isEdit,
 }) => {
   const createCourse = () => {
     hundelCourseCreation();
@@ -61,7 +63,7 @@ const CoursePreview: FC<Props> = ({
                 Tags:
               </label>
               {courseData.tags.map((tag: any) => (
-                <span className="text-sm bg-green-700 rounded-2xl mr-2 py-1 px-2">
+                <span className="text-sm text-white bg-green-800 rounded-2xl mr-2 py-1 px-2">
                   {tag}
                 </span>
               ))}
@@ -111,7 +113,7 @@ const CoursePreview: FC<Props> = ({
         <button
           className="flex items-center  justify-center bg-yellow text-primary w-36 my-5 py-3 rounded-lg font-Poppins font-bold text-lg hover:border hover:border-yellow hover:bg-primary hover:text-yellow duration-300"
           onClick={createCourse}>
-          <span>Next</span>
+          <span>{isEdit ? "Update":"Create"}</span>
           <span>
             <BsArrowRightShort size={30} />
           </span>
