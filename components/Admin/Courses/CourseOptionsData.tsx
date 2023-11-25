@@ -1,7 +1,6 @@
 import { FC } from "react";
 import toast from "react-hot-toast";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
-import { GrAddCircle } from "react-icons/gr";
 import { MdAddCircle, MdOutlineDelete } from "react-icons/md";
 type Props = {
   benifits: { title: string }[];

@@ -9,13 +9,13 @@ import {
   PeopleOutlinedIcon,
   ReceiptOutlinedIcon,
   PeopleOutlineIcon,
-  BarChartOutlinedIcon,
-  PieChartOutlineOutlinedIcon,
-  TimelineOutlinedIcon,
   MenuOutlinedIcon,
   MapOutlinedIcon,
   NoteAddOutlinedIcon,
   CastForEducationOutlinedIcon,
+  QuestionAnswerIcon,
+  CategoryIcon,
+  PermMediaIcon,
 } from "./Icons";
 import avatarIcon from "../../public/assets/avatar.svg";
 
@@ -194,33 +194,26 @@ const AdminSidebar = () => {
               variant="h6"
               color="#EEF4FA"
               sx={{ m: "15px 0 5px 20px" }}>
-              Charts
+              Customization
             </Typography>
             <Item
-              title="Bar Chart"
-              to="/bar"
-              icon={<BarChartOutlinedIcon />}
+              title="Hero"
+              to="/dashboard/hero"
+              icon={<PermMediaIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Pie Chart"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
+              title="FAQ"
+              to="/dashboard/faq"
+              icon={<QuestionAnswerIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Line Chart"
-              to="/line"
-              icon={<TimelineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Geography Chart"
-              to="/geography"
-              icon={<MapOutlinedIcon />}
+              title="Categories"
+              to="/dashboard/categories"
+              icon={<CategoryIcon />}
               selected={selected}
               setSelected={setSelected}
             />
