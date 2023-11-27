@@ -1,16 +1,17 @@
 "use client"
 import { Heading } from "@/app/utils/Heading"
 import AdminSidebar from "@/components/Admin/AdminSidebar"
+import AllInvoices from "@/components/Admin/Invoices/AllInvoices"
 import AllUsers from "@/components/Admin/Users/AllUsers"
 import { AdminProtected } from "@/hooks/useAdminProtected"
 
 type Props = {}
 
-const page = (props: Props) => {
+const InvoicesPage = (props: Props) => {
   return (
     <AdminProtected>
       <Heading
-        title={`Admin Dashboard Users Guide`}
+        title={`Admin Dashboard - Invoices`}
         description="The LMS Elearning Dashboard is a controll  platform that contains many professional courses to develop your skills and direct you to the labor market"
         keywords="Programming,courses,design"
       />
@@ -20,11 +21,11 @@ const page = (props: Props) => {
         <AdminSidebar />
         </div>
         <div className="w-full">
-          <AllUsers isTeam={false}/>
+          <AllInvoices />
         </div>
       </div>
     </AdminProtected>
   )
 }
 
-export default page
+export default InvoicesPage

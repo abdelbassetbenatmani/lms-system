@@ -1,5 +1,7 @@
+import { useGetLayoutQuery } from "@/Redux/Features/Layout/layoutApi";
 import { useFormik } from "formik";
 import { FC, useState } from "react";
+import Select from "react-select";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsArrowRightShort } from "react-icons/bs";
 import * as Yup from "yup";
@@ -18,6 +20,7 @@ const courseInformationSchema = Yup.object().shape({
   price: Yup.number().required("course price is required"),
   tags: Yup.string().required("course tags is required"),
   level: Yup.string().required("course level is required"),
+  categories: Yup.string().required("course Category is required"),
   demoUrl: Yup.string().required("course demoUrl is required"),
 });
 const CourseInformation: FC<Props> = ({
@@ -26,7 +29,7 @@ const CourseInformation: FC<Props> = ({
   active,
   setActive,
   isEdit,
-  setThumbnail
+  setThumbnail,
 }) => {
   const [dragging, setDragging] = useState(false);
   const formik = useFormik({
@@ -38,9 +41,10 @@ const CourseInformation: FC<Props> = ({
       thumbnail: courseInfo.thumbnail?.url,
       tags: courseInfo.tags,
       level: courseInfo.level,
+      categories: courseInfo.categories,
       demoUrl: courseInfo.demoUrl,
     },
-    enableReinitialize:isEdit,
+    enableReinitialize: isEdit,
     validationSchema: courseInformationSchema,
     onSubmit: async ({
       title,
@@ -50,6 +54,7 @@ const CourseInformation: FC<Props> = ({
       thumbnail,
       tags,
       level,
+      categories,
       demoUrl,
     }) => {
       setCourseInfo({
@@ -60,14 +65,24 @@ const CourseInformation: FC<Props> = ({
         thumbnail,
         tags,
         level,
+        categories,
         demoUrl,
       });
-      
+
       setActive(active + 1);
     },
   });
   const { handleChange, handleSubmit, values, errors, touched } = formik;
+  const { data, refetch } = useGetLayoutQuery("category", {
+    refetchOnMountOrArgChange: true,
+  });
 
+  const options = data?.layout?.categories?.map((category: any) => {
+    return {
+      value: category.id,
+      label: category.title,
+    };
+  });
   const handleFileChange = (e: any) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -75,7 +90,7 @@ const CourseInformation: FC<Props> = ({
       reader.onload = (e: any) => {
         if (reader.readyState === 2) {
           setCourseInfo({ ...courseInfo, thumbnail: reader.result });
-          setThumbnail(reader.result)
+          setThumbnail(reader.result);
         }
       };
       reader.readAsDataURL(file);
@@ -99,7 +114,7 @@ const CourseInformation: FC<Props> = ({
       reader.onload = (e: any) => {
         if (reader.readyState === 2) {
           setCourseInfo({ ...courseInfo, thumbnail: reader.result });
-          setThumbnail(reader.result)
+          setThumbnail(reader.result);
         }
       };
       reader.readAsDataURL(file);
@@ -220,7 +235,7 @@ const CourseInformation: FC<Props> = ({
             <label className="text-lg font-semibold font-Poppins block mb-2">
               Course level
             </label>
-            <input
+            {/* <input
               type="text"
               name="level"
               id="level"
@@ -230,7 +245,22 @@ const CourseInformation: FC<Props> = ({
                 errors.level && touched.level ? "border-red-500" : ""
               } ps-8 py-5 text-primary dark:text-white font-Poppins rounded-lg border border-primary dark:border-white border-opacity-10 bg-transparent w-full`}
               placeholder="Beginning,Intermediate,Advanced"
-            />
+            /> */}
+            <select
+              name="level"
+              id="level"
+              className="w-full px-8 py-5  font-Poppins rounded-lg border border-primary dark:border-white border-opacity-10 bg-transparent"
+              onChange={handleChange}>
+              <option value="Beginning" className="text-white bg-primary">
+                Beginning
+              </option>
+              <option value="Intermediate" className="text-white bg-primary">
+                Intermediate
+              </option>
+              <option value="Advanced" className="text-white bg-primary">
+                Advanced
+              </option>
+            </select>
             {errors.level && touched.level ? (
               <div className="text-red-500 w-full mt-1 font-Poppins ">
                 {errors.level as React.ReactNode}
@@ -239,25 +269,49 @@ const CourseInformation: FC<Props> = ({
           </div>
           <div className="w-full lg:w-1/2">
             <label className="text-lg font-semibold font-Poppins block mb-2">
-              Demo Url
+              Categories
             </label>
-            <input
-              type="text"
-              name="demoUrl"
-              id="demoUrl"
-              onChange={handleChange}
-              value={values.demoUrl}
-              className={`${
-                errors.demoUrl && touched.demoUrl ? "border-red-500" : ""
-              } ps-8 py-5 text-primary dark:text-white font-Poppins rounded-lg border border-primary dark:border-white border-opacity-10 bg-transparent w-full`}
-              placeholder="https://www.example.com/example"
-            />
+            <select
+              name="categories"
+              id="categories"
+              className="w-full px-8 py-5  font-Poppins rounded-lg border border-primary dark:border-white border-opacity-10 bg-transparent"
+              onChange={handleChange}>
+              <option value="Beginning" className="text-white bg-primary">
+                Select Caegories ...
+              </option>
+              {options?.map((option: any) => (
+                <option value={option.value} className="text-white bg-primary">
+                  {option.label}
+                </option>
+              ))}
+            </select>
             {errors.demoUrl && touched.demoUrl ? (
               <div className="text-red-500 w-full mt-1 font-Poppins ">
                 {errors.demoUrl as React.ReactNode}
               </div>
             ) : null}
           </div>
+        </div>
+        <div className="mt-4">
+          <label className="text-lg font-semibold font-Poppins block mb-2">
+            Demo Url
+          </label>
+          <input
+            type="text"
+            name="demoUrl"
+            id="demoUrl"
+            onChange={handleChange}
+            value={values.demoUrl}
+            className={`${
+              errors.demoUrl && touched.demoUrl ? "border-red-500" : ""
+            } ps-8 py-5 text-primary dark:text-white font-Poppins rounded-lg border border-primary dark:border-white border-opacity-10 bg-transparent w-full`}
+            placeholder="https://www.example.com/example"
+          />
+          {errors.demoUrl && touched.demoUrl ? (
+            <div className="text-red-500 w-full mt-1 font-Poppins ">
+              {errors.demoUrl as React.ReactNode}
+            </div>
+          ) : null}
         </div>
         <div className="mt-4">
           <label className="text-lg font-semibold font-Poppins block mb-2">

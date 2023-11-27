@@ -3,7 +3,7 @@ import { apiSlice } from "../Api/ApiSlice";
 export const layoutApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     updateLayout: builder.mutation({
-      query: ({ type, image, title, subtitle, faq, categoies }) => ({
+      query: ({ type, image, title, subtitle, faq, category }) => ({
         url: "/layout/update",
         method: "PUT",
         body: {
@@ -12,9 +12,10 @@ export const layoutApi = apiSlice.injectEndpoints({
           subtitle,
           image,
           faq,
-          categoies,
+          category,
         },
         credentials: "include" as const,
+        
       }),
     }),
     getLayout: builder.query({

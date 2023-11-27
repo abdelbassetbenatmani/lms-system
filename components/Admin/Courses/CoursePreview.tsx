@@ -24,6 +24,7 @@ const CoursePreview: FC<Props> = ({
   const discountPercentage = Math.round(
     ((courseData?.price - courseData?.discount) / courseData?.price) * 100
   ).toFixed(0);
+  console.log(courseData);
   return (
     <>
       <div className="font-Poppins w-full mt-7 min-h-sidbar flex lg:justify-between items-start flex-col gap-5 lg:flex-row">
@@ -57,7 +58,11 @@ const CoursePreview: FC<Props> = ({
             <label className="text-primary dark:text-white text-lg">
               Level:
             </label>
-            <p className="text-sm bg-green-700 rounded-2xl mr-2 py-1 px-2 mt-3 max-w-max">{courseData.level}</p>
+            <p className="text-sm bg-green-700 rounded-2xl mr-2 py-1 px-2 mt-3 max-w-max mb-4">{courseData.level}</p>
+            <label className="text-primary dark:text-white text-lg">
+              Category:
+            </label>
+            <p className="text-sm bg-green-700 rounded-2xl mr-2 py-1 px-2 mt-3 max-w-max">{courseData.categories}</p>
             <div className="my-4 ">
               <label className="text-primary dark:text-white text-lg block mb-3">
                 Tags:

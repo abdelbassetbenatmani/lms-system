@@ -200,6 +200,24 @@ const CourseContent: FC<Props> = ({
                       </div>
                       <div className="my-3">
                         <label className="text-lg font-semibold font-Poppins block mb-4">
+                          Video Duration
+                        </label>
+                        <input
+                          type="number"
+                          className="ps-8 py-5 text-white font-Poppins rounded-lg border border-white border-opacity-10 bg-transparent w-full"
+                          placeholder="Enter video Duration"
+                          value={item.videoDuration}
+                          onChange={(e) => {
+                            const updatedCourseContent = JSON.parse(JSON.stringify(courseContent));
+                            // const updatedCourseContent = [...courseContent];
+                            updatedCourseContent[index].videoDuration =
+                              e.target.value;
+                            setCourseContent(updatedCourseContent);
+                          }}
+                        />
+                      </div>
+                      <div className="my-3">
+                        <label className="text-lg font-semibold font-Poppins block mb-4">
                           Video Description
                         </label>
                         <textarea

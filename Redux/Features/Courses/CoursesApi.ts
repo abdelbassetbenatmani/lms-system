@@ -17,6 +17,13 @@ export const coursesApi = apiSlice.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+    getTopCourses: builder.query({
+      query: () => ({
+        url: "/course/get-top-admin-courses",
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
     deleteCourse: builder.mutation({
       query: (id) => ({
         url: `/course/delete-course/${id}`,
@@ -39,5 +46,6 @@ export const {
   useCreateCourseMutation,
   useGetAdminCoursesQuery,
   useDeleteCourseMutation,
-  useUpdateCourseMutation
+  useUpdateCourseMutation,
+  useGetTopCoursesQuery
 } = coursesApi;
