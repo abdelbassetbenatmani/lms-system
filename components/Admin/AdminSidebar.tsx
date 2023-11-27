@@ -10,12 +10,14 @@ import {
   ReceiptOutlinedIcon,
   PeopleOutlineIcon,
   MenuOutlinedIcon,
-  MapOutlinedIcon,
   NoteAddOutlinedIcon,
   CastForEducationOutlinedIcon,
   QuestionAnswerIcon,
   CategoryIcon,
   PermMediaIcon,
+  StackedBarChartIcon,
+  ScoreIcon,
+  BarChartIcon,
 } from "./Icons";
 import avatarIcon from "../../public/assets/avatar.svg";
 
@@ -163,7 +165,7 @@ const AdminSidebar = () => {
             />
             <Item
               title="Invoices Balances"
-              to="/invoices"
+              to="/dashboard/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -214,6 +216,33 @@ const AdminSidebar = () => {
               title="Categories"
               to="/dashboard/categories"
               icon={<CategoryIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Typography
+              variant="h6"
+              color="#EEF4FA"
+              sx={{ m: "15px 0 5px 20px" }}>
+              Analytics
+            </Typography>
+            <Item
+              title="Course Analytics"
+              to="/dashboard/courses-analytics"
+              icon={<BarChartIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Order Analytics"
+              to="/dashboard/oreders-analytics"
+              icon={<ScoreIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="User Analytics"
+              to="/dashboard/users-analytics"
+              icon={<StackedBarChartIcon />}
               selected={selected}
               setSelected={setSelected}
             />

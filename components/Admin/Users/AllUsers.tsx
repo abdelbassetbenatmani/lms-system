@@ -151,7 +151,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
   return (
     <div>
       <DashboardHeader />
-      <div className="mt-1 relative right-0 py-7 px-7 lg:px-11 w-full  bg-white dark:bg-primary text-primary dark:text-white flex items-center flex-col z-30">
+      <div className="mt-1 min-h-sidbar relative right-0 py-7 px-7 lg:px-11 w-full  bg-white dark:bg-primary text-primary dark:text-white flex items-center flex-col z-30">
         {isLoading ? (
           <Loader />
         ) : (

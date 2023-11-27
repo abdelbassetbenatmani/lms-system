@@ -13,12 +13,13 @@ import { redirect } from "next/navigation"
 
 
 const CreateCourse = () => {
+  const [activeStep, setActiveStep] = useState(0);
   const [createCourse,{isLoading,error,isSuccess}]= useCreateCourseMutation()
   const [thumbnail,setThumbnail] = useState("")
-  const [activeStep, setActiveStep] = useState(0);
   const [courseInfo, setCourseInfo] = useState({
     title: "",
     description: "",
+    categories: "",
     price: 0,
     discount: 0,
     tags: "",
@@ -33,6 +34,7 @@ const CreateCourse = () => {
     videoUrl:"",
     description:"",
     videoSection:"Untitled section",
+    videoDuration: "",
     links:[{title:"",url:""}]
     ,suggestions:""
   }])
@@ -54,6 +56,7 @@ const CreateCourse = () => {
         videoUrl: content.videoUrl,
         description: content.description,
         videoSection: content.videoSection,
+        videoDuration: content.videoDuration,
         links: content.links.map(link => {
           return {
             title: link.title,
@@ -67,6 +70,7 @@ const CreateCourse = () => {
     const courseData = {
       title: courseInfo.title,
       description: courseInfo.description,
+      categories: courseInfo.categories,
       price: courseInfo.price,
       discount: courseInfo.discount,
       tags: courseInfo.tags.split(","),
