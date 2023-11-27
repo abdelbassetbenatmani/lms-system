@@ -4,6 +4,7 @@ import React from "react";
 interface Props {
   children: React.ReactNode;
 }
+
 export const Protected = ({ children }: Props) => {
   const isAuthenticated = useUserAuth();
   return isAuthenticated ? children : redirect("/");
