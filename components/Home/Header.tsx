@@ -3,17 +3,20 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { FC, useState } from "react";
 import Navbar from "./Navbar";
-import Switcher from "./Switcher";
+import Switcher from "../Switcher";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import CustomModal from "@/app/utils/CustomModal";
-import Login from "./Auth/Login";
-import Register from "./Auth/Register";
-import VervificationOTP from "./Auth/VervificationOTP";
+import Login from "../Auth/Login";
+import Register from "../Auth/Register";
+import VervificationOTP from "../Auth/VervificationOTP";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import avatar from "../public/assets/avatar.svg";
+import avatar from "../../public/assets/avatar.svg";
 import { useSession } from "next-auth/react";
-import { useLogOutQuery, useSocialAuthMutation } from "@/Redux/Features/Auth/authApi";
+import {
+  useLogOutQuery,
+  useSocialAuthMutation,
+} from "@/Redux/Features/Auth/authApi";
 import toast from "react-hot-toast";
 type HeaderProps = {
   open: boolean;
@@ -34,15 +37,14 @@ const Header: FC<HeaderProps> = ({
 
   const { user } = useSelector((state: any) => state.auth);
 
-
   const handelClose = (e: any) => {
     if (e.target.id === "screen") setOpenSidebar(false);
   };
   const { data } = useSession();
-  
+
   const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
-  const [logout,setLogout] = useState(false)
-  const {} = useLogOutQuery(undefined, { skip: logout ? false : true  });
+  const [logout, setLogout] = useState(false);
+  const {} = useLogOutQuery(undefined, { skip: logout ? false : true });
   useEffect(() => {
     if (!user) {
       if (data) {
@@ -53,8 +55,7 @@ const Header: FC<HeaderProps> = ({
         });
       }
     }
-    if(data ===null){
-
+    if (data === null) {
       if (isSuccess) {
         toast.success("Login Successfully");
       }
@@ -62,8 +63,8 @@ const Header: FC<HeaderProps> = ({
     // if(data ===null){
     //   setLogout(true)
     // }
-    if(error){
-      console.log(error)
+    if (error) {
+      console.log(error);
     }
   }, [data, user]);
 
@@ -71,7 +72,7 @@ const Header: FC<HeaderProps> = ({
     <>
       {/* Header */}
       <div
-        className={`dark:bg-primary shadow-md fixed top-0 left-0 right-0 z-50 flex items-center justify-between h-[90px] px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 transition-all duration-500 ease-in-out`}>
+        className={`dark:bg-primary shadow-md z-50 flex items-center justify-between h-[90px] px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 transition-all duration-500 ease-in-out`}>
         <div className="container mx-auto flex justify-between items-center">
           <div className="logo">
             <Link
