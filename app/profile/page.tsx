@@ -2,14 +2,14 @@
 import { Protected } from "@/hooks/useProtected";
 import { useState } from "react";
 import { Heading } from "../utils/Heading";
-import Header from "@/components/Header";
+import Header from "@/components/Home/Header";
 import Profile from "@/components/Profile/Profile";
 import { useSelector } from "react-redux";
 const page = () => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   const [route, setRoute] = useState("Login");
-  const {user} = useSelector((state: any) => state.auth);
+  const { user } = useSelector((state: any) => state.auth);
 
   return (
     <Protected>
@@ -26,7 +26,7 @@ const page = () => {
         setRoute={setRoute}
       />
 
-      <Profile user={user}/>
+      <Profile user={user} />
     </Protected>
   );
 };
