@@ -14,7 +14,7 @@ interface CardProps {
 const CourseCard = ({ item, isProfile }: CardProps) => {
   return (
     <Link
-      href={isProfile ? `/course/${item._id}` : `/access-course/${item._id}`}
+      href={!isProfile ? `/course/${item._id}` : `/access-course/${item._id}`}
       className="relative w-full mx-auto group sm:max-w-sm shadow-lg duration-300 hover:translate-y-[-10px] transition-transform ">
       <div className="relative h-[250px]">
         <Image

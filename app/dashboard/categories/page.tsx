@@ -15,7 +15,7 @@ const CategoriesPage = (props: Props) => {
         keywords="Programming,courses,design"
       />
 
-      <div className="flex">
+      <div className="flex bg-primary">
         <div>
           <AdminSidebar />
         </div>

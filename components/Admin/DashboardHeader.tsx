@@ -10,7 +10,7 @@ type Props = {};
 const DashboardHeader = (props: Props) => {
     const [open,setOpen] = useState(false)
   return (
-    <div className="flex w-full justify-end items-center h-[90px] z-50 sticky top-0 right-0 pe-8 gap-4 bg-white dark:bg-primary text-primary dark:text-white shadow-xl">
+    <div className="flex w-full justify-end items-center h-[90px] pe-8 gap-4 bg-gray-900 text-white shadow-xl">
       <Switcher />
       <div 
       className="cursor-pointer"

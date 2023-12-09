@@ -55,7 +55,7 @@ const AdminSidebar = () => {
         minHeight: "100vh",
         height: "100%",
       }}>
-      <Sidebar collapsed={isCollapsed} backgroundColor="#1C1E53" width="300px" style={{height:"100%"}}>
+      <Sidebar collapsed={isCollapsed} backgroundColor="#111827" width="300px" >
         <Menu
         menuItemStyles={{
             button: ({ level, active, disabled }) => {

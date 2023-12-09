@@ -24,7 +24,6 @@ const CoursePreview: FC<Props> = ({
   const discountPercentage = Math.round(
     ((courseData?.price - courseData?.discount) / courseData?.price) * 100
   ).toFixed(0);
-  console.log(courseData);
   return (
     <>
       <div className="font-Poppins w-full mt-7 min-h-sidbar flex lg:justify-between items-start flex-col gap-5 lg:flex-row">

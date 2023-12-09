@@ -72,7 +72,7 @@ const Header: FC<HeaderProps> = ({
     <>
       {/* Header */}
       <div
-        className={`dark:bg-primary shadow-md z-50 flex items-center justify-between h-[90px] px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 transition-all duration-500 ease-in-out`}>
+        className={`dark:bg-primary shadow-lg z-50 flex items-center justify-between h-[90px] px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 transition-all duration-500 ease-in-out`}>
         <div className="container mx-auto flex justify-between items-center">
           <div className="logo">
             <Link

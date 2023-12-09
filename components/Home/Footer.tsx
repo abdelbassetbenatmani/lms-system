@@ -3,8 +3,6 @@ import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
-
-
   return (
     <footer className="text-white bg-primary py-8">
       <div className="max-w-screen-2xl mx-auto px-4 md:px-8 font-Poppins">
@@ -14,15 +12,14 @@ const Footer = () => {
               <div className="logo">
                 <Link
                   href={"/"}
-                  className="text-3xl font-bold font-Poppins text-primary dark:text-white">
+                  className="text-3xl font-bold font-Poppins text-white">
                   LMS Elearning
                 </Link>
               </div>
               <p className="leading-relaxed mt-2 text-[15px]">
-              Build and make dreams come true with Elearning
+                Build and make dreams come true with Elearning
               </p>
             </div>
-
           </div>
           <div className="flex-1 mt-10 space-y-6 items-center justify-between sm:flex md:space-y-0 md:mt-0">
             {footerNavs.map((item, idx) => (
@@ -48,7 +45,7 @@ const Footer = () => {
           <div className="mt-6 sm:mt-0">
             <ul className="flex items-center space-x-4">
               <li className="w-10 h-10 border rounded-full flex items-center justify-center">
-                <Link href="javascript:void()">
+                <Link href="#">
                   <svg
                     className="svg-icon w-6 h-6 text-blue-400"
                     viewBox="0 0 20 20">
@@ -60,7 +57,7 @@ const Footer = () => {
               </li>
 
               <li className="w-10 h-10 border rounded-full flex items-center justify-center">
-                <Link href="javascript:void()">
+                <Link href="#">
                   <svg
                     className="svg-icon w-6 h-6 text-blue-700"
                     viewBox="0 0 20 20">
@@ -72,7 +69,7 @@ const Footer = () => {
               </li>
 
               <li className="w-10 h-10 border rounded-full flex items-center justify-center">
-                <Link href="javascript:void()">
+                <Link href="#">
                   <svg
                     className="svg-icon w-6 h-6 text-blue-500"
                     viewBox="0 0 20 20">
@@ -84,7 +81,7 @@ const Footer = () => {
               </li>
 
               <li className="w-10 h-10 border rounded-full flex items-center justify-center">
-                <Link href="javascript:void()">
+                <Link href="#">
                   <svg
                     className="svg-icon w-6 h-6 text-red-600"
                     viewBox="0 0 20 20">
